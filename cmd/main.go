@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"sort"
 )
 
 type Pair struct {
@@ -11,28 +10,30 @@ type Pair struct {
 }
 
 func main() {
-	var Timeses = [][2]int{{1200, 1245}, {1200, 1400}, {1730, 1800}}
+	var Timeses = [][2]int{{1200, 1300}, {1230, 1500}, {1245, 1700}}
 	N := len(Timeses)
 
-	var a = [2 * N]Pair{}
+	var A = [6]Pair{}
 
 	for i := 0; i < N; i++ {
-		a[2*i] = Pair(Timeses[i][0], true)
-		a[2*i+1] = Pair(Timeses[i][1], false)
+		A[2*i] = Pair{Timeses[i][0], true}
+		A[2*i+1] = Pair{Timeses[i][1], false}
+		//	log.Println(Timeses[i][0], Timeses[i][1])
+
 	}
-	sort.Ints(a)
+	//log.Println(A)
 
 	curMax := 0
 	maxFinal := 0
 
 	for i := 0; i < 2*N; i++ {
-		if a[i].second {
-			curMax++
+		if A[i].second {
+			curMax = curMax + 1
 		} else {
 			if curMax > maxFinal {
 				maxFinal = curMax
 			}
-			curMax--
+			curMax = curMax - 1
 		}
 	}
 
