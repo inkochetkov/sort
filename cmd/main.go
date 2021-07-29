@@ -2,33 +2,44 @@ package main
 
 import (
 	"log"
+	"sort"
 )
 
-type Times struct {
-	Start, End int
+type Pair struct {
+	first  int
+	second bool
 }
 
 func main() {
-	var Timeses = []Times{{1200, 1245}, {1200, 1400}, {1730, 1800}}
-	var maxauto = 0
-	for m, _ := range Timeses {
+	var Timeses = [][2]int{{1200, 1245}, {1200, 1400}, {1730, 1800}}
+	N := len(Timeses)
+	answer := maxauto(Timeses, N)
+	log.Println(answer)
+}
 
-		for j := Timeses[m].Start; j < Timeses[m].End; j++ {
+func maxauto(Timeses, N int) (answer int) {
 
-			for i := Timeses[m+1].Start; i < Timeses[m+1].End; i++ {
+	a := Pair[2*N]
 
-				if j == i {
-
-					break
-				} else {
-					j = j + 1
-					i = i + 1
-				}
-			}
-		}
-		maxauto = maxauto + 1
-
-		log.Println(maxauto)
+	for i := 0; i < N; i++ {
+		a[2*i] = Pair(Timeses[i][0], true)
+		a[2*i+1] = Pair(Timeses[i][1], false)
 	}
+	sort.Ints(a)
 
+	curMax := 0
+	maxFinal := 0
+
+	for i := 0; i < 2*N; i++ {
+		if a[i][1] {
+			curMax = curMax + 1
+		} else {
+			if curMax > maxFinal {
+				maxFinal = curMax
+			}
+			curMax = curMax - 1
+		}
+	}
+	answer = maxFinal
+	return answer
 }
