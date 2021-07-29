@@ -13,13 +13,8 @@ type Pair struct {
 func main() {
 	var Timeses = [][2]int{{1200, 1245}, {1200, 1400}, {1730, 1800}}
 	N := len(Timeses)
-	answer := maxauto(Timeses, N)
-	log.Println(answer)
-}
 
-func maxauto(Timeses, N int) (answer int) {
-
-	a := Pair[2*N]
+	var a = [2 * N]Pair{}
 
 	for i := 0; i < N; i++ {
 		a[2*i] = Pair(Timeses[i][0], true)
@@ -31,15 +26,15 @@ func maxauto(Timeses, N int) (answer int) {
 	maxFinal := 0
 
 	for i := 0; i < 2*N; i++ {
-		if a[i][1] {
-			curMax = curMax + 1
+		if a[i].second {
+			curMax++
 		} else {
 			if curMax > maxFinal {
 				maxFinal = curMax
 			}
-			curMax = curMax - 1
+			curMax--
 		}
 	}
-	answer = maxFinal
-	return answer
+
+	log.Println(maxFinal)
 }
