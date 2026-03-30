@@ -1,16 +1,5 @@
 package sort
 
-/*
-
-Selection Sort
-
-Complexity: O(n²)
-Space complexity: O(1)
-
-The idea is to sequentially search for the minimum element
-in the unsorted portion and move it to the beginning.
-The algorithm is complex and is only effective for small lists.
-*/
 func SelectionSort(arr []int) []int {
 
 	n := len(arr)
